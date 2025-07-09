@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Library Dashboard</title>
+
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -25,6 +27,7 @@
     </style>
 </head>
 <body>
+   
     <nav class="bg-blue-600 p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
             <a href="dashboard.html" class="text-white text-2xl font-bold rounded-md px-3 py-2 hover:bg-blue-700 transition duration-150">E-Library</a>
@@ -33,10 +36,12 @@
                     type="text"
                     id="searchBar"
                     placeholder="Search books..."
-                    class="px-4 py-2 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-150"/>
+                    class="px-4 py-2 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-150"
+                />
                 <button
                     id="searchButton"
-                    class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-150 transform hover:scale-105">
+                    class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition duration-150 transform hover:scale-105"
+                >
                     Search
                 </button>
                 <a href="#" id="addBookNav" class="text-white hover:text-blue-200 px-3 py-2 rounded-md hover:bg-blue-700 transition duration-150">Add Book</a>
@@ -83,16 +88,27 @@
         <div id="noBooksMessage" class="text-center text-gray-500 mt-8 hidden">No books found matching your criteria.</div>
     </div>
 
-    <script> 
+    <script>
+        const allBooks = [
+            { id: 1, title: "The Martian", author: "Andy Weir", genre: "Science Fiction", cover: "https://placehold.co/150x200/cccccc/333333?text=The+Martian" },
+            { id: 2, title: "Educated", author: "Tara Westover", genre: "Memoir", cover: "https://placehold.co/150x200/cccccc/333333?text=Educated" },
+            { id: 3, title: "Sapiens: A Brief History of Humankind", author: "Yuval Noah Harari", genre: "Non-Fiction", cover: "https://placehold.co/150x200/cccccc/333333?text=Sapiens" },
+            { id: 4, title: "Project Hail Mary", author: "Andy Weir", genre: "Science Fiction", cover: "https://placehold.co/150x200/cccccc/333333?text=Project+Hail+Mary" },
+            { id: 5, title: "Becoming", author: "Michelle Obama", genre: "Memoir", cover: "https://placehold.co/150x200/cccccc/333333?text=Becoming" },
+            { id: 6, title: "Dune", author: "Frank Herbert", genre: "Science Fiction", cover: "https://placehold.co/150x200/cccccc/333333?text=Dune" },
+        ];
+
         function displayBooks(booksToDisplay) {
             const booksGrid = document.getElementById('booksGrid');
             booksGrid.innerHTML = ''; 
             document.getElementById('loadingMessage').classList.add('hidden');
             document.getElementById('noBooksMessage').classList.add('hidden');
+
             if (booksToDisplay.length === 0) {
                 document.getElementById('noBooksMessage').classList.remove('hidden');
                 return;
             }
+
             booksToDisplay.forEach(book => {
                 const bookCard = `
                     <div class="book-card bg-white rounded-lg overflow-hidden p-6 text-center">
@@ -106,33 +122,35 @@
                 booksGrid.insertAdjacentHTML('beforeend', bookCard);
             });
         }
+
         document.addEventListener('DOMContentLoaded', () => {
             displayBooks(allBooks); 
-        });
+
         document.getElementById('searchButton').addEventListener('click', () => {
             const searchTerm = document.getElementById('searchBar').value.toLowerCase();
             const filteredBooks = allBooks.filter(book =>
-                book.title.toLowerCase().includes(searchTerm) 
-                book.author.toLowerCase().includes(searchTerm) 
+                book.title.toLowerCase().includes(searchTerm) ||
+                book.author.toLowerCase().includes(searchTerm) ||
                 book.genre.toLowerCase().includes(searchTerm)
             );
             displayBooks(filteredBooks);
         });
+
         document.getElementById('searchBar').addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 document.getElementById('searchButton').click();
             }
         });
+
         document.getElementById('addBookNav').addEventListener('click', (event) => {
             event.preventDefault(); 
             alert("This will navigate to the 'Add Book' page (to be implemented).");
         });
+
         document.getElementById('staffDetailsNav').addEventListener('click', (event) => {
-            event.preventDefault();
-            alert;
+            event.preventDefault(); 
+            alert("This will navigate to the 'Staff Details' page (to be implemented).");
         });
     </script>
 </body>
 </html>
-    
-    
